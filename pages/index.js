@@ -1,30 +1,14 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import Link from "next/link";
+import populateCart from "./functions/populateCart";
 import { useAppContext } from "./context/state";
 import { useEffect } from "react";
 
 export default function Home() {
-  const {
-    menuitems,
-    setMenuItem,
-    cartitems,
-    setCartItem,
-    show,
-    setShow,
-    modalItem,
-    setModalItem,
-  } = useAppContext();
+  const { cartitems } = useAppContext();
 
-  useEffect(() => {
-    const cartData = JSON.parse(localStorage.getItem("cartitems"));
-    if (cartData) {
-      setCartItem(cartData);
-    }
-  }, []);
-  useEffect(() => {
-    localStorage.setItem("cartitems", JSON.stringify(cartitems));
-  });
+  populateCart();
 
   return (
     <div className={styles.container}>

@@ -1,25 +1,55 @@
 import { useAppContext } from "./context/state";
-import { useEffect } from "react";
+import populateCart from "./functions/populateCart";
 import Link from "next/link";
+import OrderItem from "./components/OrderItem";
 
 const CartPage = () => {
-  const { cartitems, setCartItem } = useAppContext();
+  const { cartitems, cartDispatch, dispatch, setShow } = useAppContext();
 
-  useEffect(() => {
-    const cartData = JSON.parse(localStorage.getItem("cartitems"));
-    if (cartData) {
-      setCartItem(cartData);
-    }
-  }, []);
-  useEffect(() => {
-    localStorage.setItem("cartitems", JSON.stringify(cartitems));
+  populateCart();
+
+  const renderedCart = cartitems.map((item, index) => {
+    const mod1Display = (item) => {
+      return item.mod1Add ? <p>{item.mod1}</p> : <p></p>;
+    };
+    return (
+      <div key={index}>
+        <h4>{item.title}</h4>
+        <div>{mod1Display(item)}</div>
+        <button
+          onClick={() =>
+            cartDispatch({
+              type: "REMOVE_CARTITEM",
+              id: item.id,
+            })
+          }
+        >
+          Remove
+        </button>
+        <button
+          onClick={() => {
+            cartDispatch({
+              type: "REMOVE_CARTITEM",
+              id: item.id,
+            });
+            setShow(true);
+            dispatch({
+              type: "ADD_MODAL_ITEM",
+              title: item.title,
+              description: item.description,
+              mod1: item.mod1,
+              mod2: item.mod2,
+              mod1Add: item.mod1Add,
+              mod2Add: item.mod2Add,
+              buttonText: "Update Item",
+            });
+          }}
+        >
+          Modify
+        </button>
+      </div>
+    );
   });
-
-  const renderedCart = cartitems.map((item) => (
-    <div>
-      <h4>{item}</h4>
-    </div>
-  ));
 
   return (
     <div>
@@ -27,7 +57,11 @@ const CartPage = () => {
         <a>Go home</a>
       </Link>
       <div>{renderedCart}</div>
-      <button>Submit Order</button>
+      <button>Checkout</button>
+      <OrderItem />
+      <Link href="/order">
+        <a>Add to Order</a>
+      </Link>
     </div>
   );
 };

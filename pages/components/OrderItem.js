@@ -1,25 +1,27 @@
 import Link from "next/link";
 import { useAppContext } from "../context/state";
-import { useState } from "react";
 
 const OrderItem = () => {
-  const {
-    menuitems,
-    setMenuItem,
-    cartitems,
-    setCartItem,
-    show,
-    setShow,
-    modalItem,
-    setModalItem,
-  } = useAppContext();
+  const { cartDispatch, dispatch, show, setShow, modalitem } = useAppContext();
 
-  const addCartItem = (itemToAdd) => {
-    setCartItem([...cartitems, itemToAdd]);
+  const addCartItem = (item) => {
+    cartDispatch({
+      type: "ADD_CARTITEM",
+      title: item.title,
+      description: item.description,
+      mod1: item.mod1,
+      mod2: item.mod2,
+      mod1Add: item.mod1Add,
+      mod2Add: item.mod2Add,
+      id: item.id,
+    });
+    setShow(false);
   };
 
-  const hideModal = () => {
-    setShow(false);
+  const toggleMod1 = () => {
+    dispatch({
+      type: "TOGGLE_MOD_1",
+    });
   };
 
   const showHideClassName = show
@@ -29,10 +31,17 @@ const OrderItem = () => {
   return (
     <div className={showHideClassName}>
       <section className="order-item-main">
-        <p>{modalItem}</p>
-        {/* <p>{modalItem.description}</p> */}
-        <button onClick={() => addCartItem(modalItem)}>Add Item</button>
-        <button onClick={() => hideModal()}>x</button>
+        <p>{modalitem.title}</p>
+        <p>{modalitem.mod1}</p>{" "}
+        <input
+          type="checkbox"
+          checked={modalitem.mod1Add}
+          onChange={toggleMod1}
+        />
+        <button onClick={() => addCartItem(modalitem)}>
+          {modalitem.buttonText}
+        </button>
+        <button onClick={() => setShow(false)}>x</button>
       </section>
 
       <style jsx>{`

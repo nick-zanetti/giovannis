@@ -2,36 +2,41 @@ import Link from "next/link";
 import { useAppContext } from "./context/state";
 import { useEffect } from "react";
 import OrderItem from "./components/OrderItem";
+import populateCart from "./functions/populateCart";
 
 const OrderPage = () => {
   const {
     menuitems,
-    setMenuItem,
     cartitems,
-    setCartItem,
-    show,
+    cartDispatch,
     setShow,
-    modalItem,
-    setModalItem,
+    dispatch,
   } = useAppContext();
 
   //get cart items from local storage and store new cart items in local storage
 
-  useEffect(() => {
-    const cartData = JSON.parse(localStorage.getItem("cartitems"));
-    if (cartData) {
-      setCartItem(cartData);
-    }
-  }, []);
-  useEffect(() => {
-    localStorage.setItem("cartitems", JSON.stringify(cartitems));
-  });
-  const renderedMenu = menuitems.map((item) => (
+  populateCart();
+
+  //function for adding an item to the modal state
+  const addModalItem = (item) => {
+    dispatch({
+      type: "ADD_MODAL_ITEM",
+      title: item.title,
+      description: item.description,
+      buttonText: "Add Item",
+      mod1: item.mod1,
+      mod2: item.mod2,
+      mod1Add: item.mod1Add,
+      mod2Add: item.mod2Add,
+    });
+  };
+
+  const renderedMenu = menuitems.map((item, index) => (
     <div
-      key={item.title}
+      key={index}
       onClick={() => {
         setShow(true);
-        setModalItem(item.title);
+        addModalItem(item);
       }}
     >
       <h4>{item.title}</h4>
@@ -46,6 +51,9 @@ const OrderPage = () => {
       </Link>
       <div>{renderedMenu}</div>
       <OrderItem />
+      <Link href="/cart">
+        <a>Cart({cartitems.length})</a>
+      </Link>
     </div>
   );
 };
