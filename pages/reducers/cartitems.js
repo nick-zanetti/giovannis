@@ -13,6 +13,7 @@ const cartitemsReducer = (state, action) => {
           mod1Add: action.mod1Add,
           mod2Add: action.mod2Add,
           id: action.id,
+          price: action.price,
         },
       ];
     case "REMOVE_CARTITEM":

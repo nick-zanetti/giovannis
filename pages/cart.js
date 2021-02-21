@@ -42,6 +42,7 @@ const CartPage = () => {
               mod1Add: item.mod1Add,
               mod2Add: item.mod2Add,
               buttonText: "Update Item",
+              price: item.price,
             });
           }}
         >
@@ -57,7 +58,9 @@ const CartPage = () => {
         <a>Go home</a>
       </Link>
       <div>{renderedCart}</div>
-      <button>Checkout</button>
+      <Link href="/checkout">
+        <a>Checkout</a>
+      </Link>
       <OrderItem />
       <Link href="/order">
         <a>Add to Order</a>

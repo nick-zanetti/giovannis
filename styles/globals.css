@@ -6,6 +6,58 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+html,
+#__next,
+body {
+  height: 100%;
+}
+
+/* #__next {
+  display: block;
+  position: relative;
+}
+
+#__next::after {
+  content: "";
+  background-image: url("../public/dining2.jpg");
+  min-width: 100%;
+  min-height: 100%;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(50%);
+
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+} */
+
+#home-container {
+  height: 100%;
+  width: 100%;
+  display: block;
+  position: relative;
+}
+
+#home-container::after {
+  content: "";
+  background-image: url("../public/dining2.jpg");
+  min-width: 100%;
+  min-height: 100%;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(50%);
+
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
+
 a {
   color: inherit;
   text-decoration: none;

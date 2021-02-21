@@ -1,8 +1,18 @@
 import Link from "next/link";
 import { useAppContext } from "../context/state";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Button, Modal } from "react-bootstrap";
 
 const OrderItem = () => {
-  const { cartDispatch, dispatch, show, setShow, modalitem } = useAppContext();
+  const {
+    cartDispatch,
+    dispatch,
+    show,
+    setShow,
+    modalitem,
+    subtotal,
+    setSubtotal,
+  } = useAppContext();
 
   const addCartItem = (item) => {
     cartDispatch({
@@ -14,8 +24,10 @@ const OrderItem = () => {
       mod1Add: item.mod1Add,
       mod2Add: item.mod2Add,
       id: item.id,
+      price: item.price,
     });
     setShow(false);
+    setSubtotal(subtotal + item.price);
   };
 
   const toggleMod1 = () => {
@@ -24,25 +36,60 @@ const OrderItem = () => {
     });
   };
 
-  const showHideClassName = show
-    ? "order-item display-block"
-    : "order-item display-none";
+  const toggleMod2 = () => {
+    dispatch({
+      type: "TOGGLE_MOD_2",
+    });
+  };
+
+  // const showHideClassName = show
+  //   ? "order-item display-block"
+  //   : "order-item display-none";
 
   return (
-    <div className={showHideClassName}>
-      <section className="order-item-main">
-        <p>{modalitem.title}</p>
-        <p>{modalitem.mod1}</p>{" "}
-        <input
-          type="checkbox"
-          checked={modalitem.mod1Add}
-          onChange={toggleMod1}
-        />
-        <button onClick={() => addCartItem(modalitem)}>
-          {modalitem.buttonText}
-        </button>
-        <button onClick={() => setShow(false)}>x</button>
-      </section>
+    <div>
+      <Modal
+        show={show}
+        backdrop="static"
+        centered
+        onHide={() => setShow(false)}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>{modalitem.title}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{modalitem.description}</Modal.Body>
+        <Modal.Body>
+          <span>
+            <input
+              type="checkbox"
+              checked={modalitem.mod1Add}
+              onChange={toggleMod1}
+            />
+          </span>
+          <span>
+            {"   "}
+            {modalitem.mod1}
+          </span>
+        </Modal.Body>
+        <Modal.Body>
+          <span>
+            <input
+              type="checkbox"
+              checked={modalitem.mod2Add}
+              onChange={toggleMod2}
+            />
+          </span>
+          <span>
+            {"   "}
+            {modalitem.mod2}
+          </span>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={() => addCartItem(modalitem)}>
+            {modalitem.buttonText}
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
       <style jsx>{`
          

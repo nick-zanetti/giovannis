@@ -15,4 +15,18 @@ const populateCart = () => {
   });
 };
 
-export { populateCart as default };
+const getSubtotal = () => {
+  const { subtotal, setSubtotal } = useAppContext();
+
+  useEffect(() => {
+    const subTotalData = JSON.parse(localStorage.getItem("subtotal"));
+    if (subTotalData) {
+      setSubtotal(subTotalData);
+    }
+  }, []);
+  useEffect(() => {
+    localStorage.setItem("subtotal", subtotal);
+  });
+};
+
+export { populateCart as default, getSubtotal };
