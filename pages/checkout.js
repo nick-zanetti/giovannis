@@ -1,9 +1,9 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import Topnav from "./components/Navbar";
-import { useAppContext } from "./context/state";
-import populateCart, { getSubtotal } from "./functions/populateCart";
-import OrderItem from "./components/OrderItem";
-import Link from "next/link";
+import Topnav from "../components/Navbar";
+import { useAppContext } from "../context/state";
+import populateCart, { getSubtotal } from "../functions/populateCart";
+import OrderItem from "../components/OrderItem";
+
 import emailjs from "emailjs-com";
 import { useState } from "react";
 

@@ -1,7 +1,6 @@
 import { useAppContext } from "../context/state";
 import populateCart from "../functions/populateCart";
-import Link from "next/link";
-import OrderItem from "./OrderItem";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   Button,

@@ -1,10 +1,10 @@
 import Head from "next/head";
-import Topnav from "./components/Navbar";
+import Topnav from "../components/Navbar";
 import styles from "../styles/Home.module.css";
 
 import Link from "next/link";
-import populateCart from "./functions/populateCart";
-import { useAppContext } from "./context/state";
+import populateCart from "../functions/populateCart";
+import { useAppContext } from "../context/state";
 
 export default function Home() {
   const { cartitems } = useAppContext();

@@ -1,9 +1,7 @@
-import Link from "next/link";
-import Cart from "./components/Cart";
-import { useAppContext } from "./context/state";
-import Topnav from "./components/Navbar";
-import OrderItem from "./components/OrderItem";
-import populateCart, { getSubtotal } from "./functions/populateCart";
+import { useAppContext } from "../context/state";
+import Topnav from "../components/Navbar";
+import OrderItem from "../components/OrderItem";
+import populateCart, { getSubtotal } from "../functions/populateCart";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   Button,
@@ -16,7 +14,6 @@ import {
   ListGroupItem,
   Nav,
 } from "react-bootstrap";
-import NavBar from "./components/Navbar";
 
 const OrderPage = () => {
   const {
