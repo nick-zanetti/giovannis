@@ -166,7 +166,7 @@ const OrderPage = () => {
     </Col>
   ));
 
-  const renderedDessertMenu = appmenuitems.map((item, index) => (
+  const renderedDessertMenu = dessertmenuitems.map((item, index) => (
     <Col>
       <div
         key={index}
